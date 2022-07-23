@@ -1,0 +1,29 @@
+.list {
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  cursor: grab;
+  background-color: #448bc5;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #2f32c5;
+  border-radius: 8px;
+  padding: 0 10px;
+  box-shadow: 3px 3px 8px 2px rgba(0, 0, 0, 0.3);
+}
+
+.item:nth-child(even) {
+  background-color: #445daf;
+  color: #fff;
+}
+.item:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.emptyFilter {
+  font-size: 20px;
+}
