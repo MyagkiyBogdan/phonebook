@@ -1,12 +1,13 @@
 import { Routes, Route } from 'react-router-dom';
 import { AppBar } from 'components/AppBar/AppBar';
 import authOperations from 'redux/auth/authOperations';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useEffect, lazy, Suspense } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Spiner from 'components/Spiner';
 import authSelectors from 'redux/auth/authSelectors';
+import { useAppDispatch } from 'redux/store';
 
 const HomeView = lazy(() => import('./views/HomeView'));
 const ContactsView = lazy(() => import('./views/ContactsView'));
@@ -16,7 +17,7 @@ const PublicRoute = lazy(() => import('./routes/PublicRoute'));
 const PrivateRoute = lazy(() => import('./routes/PrivateRoute'));
 
 export function App() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const isFetchingCurrentUser = useSelector(
     authSelectors.getIsFetchingCurrentUser
