@@ -1,4 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from 'redux/store';
+
 import authSelectors from 'redux/auth/authSelectors';
 import authOperations from 'redux/auth/authOperations';
 import defaultAvatart from 'img/placeholder.jpeg';
@@ -11,7 +13,7 @@ import {
 } from './AppBar.styled';
 
 export function UserMenu() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const username = useSelector(authSelectors.getUsername);
 
   const handleLogout = () => dispatch(authOperations.logout());

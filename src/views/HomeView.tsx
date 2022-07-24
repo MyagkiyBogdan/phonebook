@@ -20,7 +20,16 @@ import {
 export default function HomeView() {
   const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
   const username = useSelector(authSelectors.getUsername);
-  const [value, setValue] = useState();
+  const [value, setValue] = useState<number | null>();
+
+  const handleIncreaseRating = (
+    event: React.SyntheticEvent,
+    newValue: number | null
+  ) => {
+    setValue(newValue);
+    console.log(value);
+  };
+
   return (
     <ViewWrapper>
       <HeaderSection>
@@ -40,10 +49,7 @@ export default function HomeView() {
                 mb: '15px',
               }}
               size="large"
-              value={value}
-              onChange={(event, newValue) => {
-                setValue(newValue);
-              }}
+              onChange={handleIncreaseRating}
             />
 
             <Message>

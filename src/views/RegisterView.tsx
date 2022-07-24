@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from 'redux/store';
 import authOperations from '../redux/auth/authOperations';
 import { TextField, Button } from '@mui/material';
 import {
@@ -12,12 +12,12 @@ import {
 } from './Views.styled';
 
 export default function RegisterView() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleChange = event => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     switch (event.currentTarget.name) {
       case 'name':
         return setName(event.currentTarget.value);
@@ -30,7 +30,7 @@ export default function RegisterView() {
     }
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(authOperations.register({ name, email, password }));
     setName('');
