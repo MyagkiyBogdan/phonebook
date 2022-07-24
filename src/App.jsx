@@ -35,7 +35,7 @@ export function App() {
       >
         <AppBar />
         <Routes>
-          <Route path="/" exact element={<HomeView />} />
+          <Route path="/" element={<HomeView />} />
           <Route element={<PublicRoute closed redirectTo="contacts" />}>
             <Route path="/login" element={<LoginView />} />
           </Route>

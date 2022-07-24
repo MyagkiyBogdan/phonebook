@@ -22,7 +22,10 @@ const authPersistConfig = {
 
 export const store = configureStore({
   reducer: {
-    auth: persistReducer(authPersistConfig, authSlice.reducer),
+    auth: persistReducer<ReturnType<typeof authSlice.reducer>>(
+      authPersistConfig,
+      authSlice.reducer
+    ),
     [contactsApi.reducerPath]: contactsApi.reducer,
     filter: filterSlice.reducer,
   },
@@ -36,3 +39,6 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+
+// for correct type on project
+export type RootState = ReturnType<typeof store.getState>;

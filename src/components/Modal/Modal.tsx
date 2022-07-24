@@ -1,13 +1,20 @@
 import styles from './Modal.module.css';
 import { createPortal } from 'react-dom';
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+
 import { useChangeContactMutation } from 'redux/contactsApi';
 import { useEffect } from 'react';
 
-const modalRoot = document.querySelector('#modal-root');
+const modalRoot = document.querySelector('#modal-root') as HTMLDivElement;
 
-const Modal = ({ id, name, number, toggleModal }) => {
+interface IModalProps {
+  id: string;
+  name: string;
+  number: string;
+  toggleModal: () => void;
+}
+
+const Modal = ({ id, name, number, toggleModal }: IModalProps) => {
   const [changeContact] = useChangeContactMutation();
 
   useEffect(() => {
@@ -15,13 +22,13 @@ const Modal = ({ id, name, number, toggleModal }) => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   });
 
-  const handleBackdropClick = e => {
+  const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       toggleModal();
     }
   };
 
-  const handleKeyDown = e => {
+  const handleKeyDown = (e: KeyboardEvent) => {
     if (e.code === 'Escape') {
       toggleModal();
     }
@@ -30,7 +37,7 @@ const Modal = ({ id, name, number, toggleModal }) => {
   const [newName, setNewName] = useState(name);
   const [newNumber, setNewNumber] = useState(number);
 
-  const handleChange = event => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     switch (event.currentTarget.name) {
       case 'name':
         setNewName(event.currentTarget.value);
@@ -43,7 +50,7 @@ const Modal = ({ id, name, number, toggleModal }) => {
     }
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     changeContact({ contactId: id, newName, newNumber });
@@ -95,12 +102,6 @@ const Modal = ({ id, name, number, toggleModal }) => {
     </div>,
     modalRoot
   );
-};
-
-Modal.propTypes = {
-  name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
-  toggleModal: PropTypes.func.isRequired,
 };
 
 export default Modal;

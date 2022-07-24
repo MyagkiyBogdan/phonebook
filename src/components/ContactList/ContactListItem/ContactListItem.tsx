@@ -3,11 +3,17 @@ import Modal from 'components/Modal';
 import { useState } from 'react';
 import { ReactComponent as DelBtn } from 'icons/del.svg';
 import { ReactComponent as ChangeBtn } from 'icons/change.svg';
-import PropTypes from 'prop-types';
+
 import { useDeleteContactMutation } from 'redux/contactsApi';
 import Spiner from 'components/Spiner';
 
-const ContactListItem = ({ id, name, number }) => {
+interface IContactListItemProps {
+  id: string;
+  name: string;
+  number: string;
+}
+
+const ContactListItem = ({ id, name, number }: IContactListItemProps) => {
   const [deleteContact, { isLoading }] = useDeleteContactMutation();
 
   const [showModal, setShowModal] = useState(false);
@@ -50,12 +56,6 @@ const ContactListItem = ({ id, name, number }) => {
       )}
     </>
   );
-};
-
-ContactListItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
 };
 
 export default ContactListItem;

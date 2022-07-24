@@ -1,17 +1,18 @@
+import React from 'react';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
-import { Navigate, Outlet } from 'react-router-dom';
+
+import { Navigate, Outlet, RouteProps } from 'react-router-dom';
 import authSelectors from 'redux/auth/authSelectors';
 
-const PublicRoute = ({ closed = false, redirectTo }) => {
+interface IPublicRouteProps extends RouteProps {
+  closed: Boolean;
+  redirectTo: string;
+}
+
+const PublicRoute = ({ closed = false, redirectTo }: IPublicRouteProps) => {
   const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
   const shouldRedirect = isLoggedIn && closed;
   return shouldRedirect ? <Navigate to={redirectTo} /> : <Outlet />;
 };
 
 export default PublicRoute;
-
-PublicRoute.propTypes = {
-  closed: PropTypes.bool.isRequired,
-  redirectTo: PropTypes.string.isRequired,
-};
