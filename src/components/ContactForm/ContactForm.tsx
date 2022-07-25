@@ -4,15 +4,16 @@ import Spiner from 'components/Spiner';
 import { useState } from 'react';
 import { useAddContactMutation } from 'redux/contactsApi';
 import { toast } from 'react-toastify';
+import { IContact } from 'models/models';
 
 function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const { data } = useGetContactsQuery();
+  const { data } = useGetContactsQuery<IContact[] | any>();
   const [addContact, { isLoading }] = useAddContactMutation();
 
-  const handleChange = event => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     switch (event.currentTarget.name) {
       case 'name':
         setName(event.currentTarget.value);
@@ -25,16 +26,17 @@ function ContactForm() {
     }
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // For deal array of contacts in lower case
-    const allContacts =
-      data &&
-      data.reduce((acc, contact) => {
+    const allContacts: string[] = data?.reduce(
+      (acc: string[], contact: IContact) => {
         acc.push(contact.name.toLocaleLowerCase());
         return acc;
-      }, []);
+      },
+      []
+    );
 
     // Check if the contact is already in the contact list
     if (allContacts.includes(name.toLocaleLowerCase())) {
@@ -64,8 +66,8 @@ function ContactForm() {
           pattern="^[a-zA-Zа-яА-Я0-9]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash, numbers and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
-          maxLength="14"
-          minLength="1"
+          maxLength={14}
+          minLength={1}
         />
       </div>
       <div className={styles.wrapper}>
@@ -81,7 +83,7 @@ function ContactForm() {
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
-          maxLength="14"
+          maxLength={14}
         />
       </div>
       <button type="submit" className={styles.addBtn}>

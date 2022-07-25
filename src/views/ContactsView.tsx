@@ -10,11 +10,11 @@ import {
   ContactsSection,
   ContactsTitle,
 } from './Views.styled';
-
+import { IContact } from 'models/models';
 import { useGetContactsQuery } from 'redux/contactsApi';
 
 export default function ContactsView() {
-  const { data, isLoading } = useGetContactsQuery();
+  const { data, isLoading } = useGetContactsQuery<IContact[] | any>();
 
   return (
     <ViewWrapper>
@@ -27,7 +27,7 @@ export default function ContactsView() {
         <ContactsSection>
           <ContactsTitle>Your contacts</ContactsTitle>
           {isLoading && <Spiner width={50} height={50} color="blue" />}
-          {data && data.length > 0 ? (
+          {data?.length > 0 ? (
             <>
               <Filter />
               <ContactList />

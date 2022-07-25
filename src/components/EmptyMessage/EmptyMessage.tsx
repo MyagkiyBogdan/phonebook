@@ -1,6 +1,6 @@
 import styles from './EmptyMessage.module.css';
 
-const EmptyMessage = () => (
+const EmptyMessage: React.FC = () => (
   <p className={styles.text}>Your contacts list is empty</p>
 );
 

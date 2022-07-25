@@ -1,11 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { IChangeContact } from 'models/models';
+
+import { IContact } from 'models/models';
 
 export const contactsApi = createApi({
   reducerPath: 'contactsApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://connections-api.herokuapp.com/',
-    keepUnusedDataFor: 0,
-    prepareHeaders: (headers, { getState }) => {
+    // keepUnusedDataFor: 0,
+    prepareHeaders: (headers, { getState }: any): any => {
       const token = getState().auth.token;
       if (token) {
         headers.set('authorization', `Bearer ${token}`);
@@ -16,22 +19,26 @@ export const contactsApi = createApi({
       return headers;
     },
   }),
+  // added here
+  keepUnusedDataFor: 0,
+  //
   tagTypes: ['Contacts'],
   endpoints: builder => ({
-    getContacts: builder.query({
+    // advice from documentation if we need no agrs for useGetContactsQuery
+    getContacts: builder.query<IContact[], void>({
       query: () => `/contacts`,
       keepUnusedDataFor: 0,
       providesTags: ['Contacts'],
     }),
     deleteContact: builder.mutation({
-      query: contactId => ({
+      query: (contactId: string) => ({
         url: `/contacts/${contactId}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Contacts'],
     }),
     addContact: builder.mutation({
-      query: ({ name, number }) => ({
+      query: ({ name, number }: { name: string; number: string }) => ({
         url: `/contacts`,
         method: 'POST',
         body: {
@@ -42,7 +49,7 @@ export const contactsApi = createApi({
       invalidatesTags: ['Contacts'],
     }),
     changeContact: builder.mutation({
-      query: ({ contactId, newName, newNumber }) => ({
+      query: ({ id: contactId, newName, newNumber }: IChangeContact) => ({
         url: `/contacts/${contactId}`,
         method: 'PATCH',
         body: {

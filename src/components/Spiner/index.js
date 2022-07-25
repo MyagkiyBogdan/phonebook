@@ -1,1 +1,1 @@
-export { default } from './Spiner.jsx';
+export { default } from './Spiner.tsx';

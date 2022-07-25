@@ -1,10 +1,14 @@
 import styles from './Filter.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateFilter, getFilter } from 'redux/filterSlice';
+import React from 'react';
 
 const Filter = () => {
   const filter = useSelector(getFilter);
   const dispatch = useDispatch();
+  const handleChangeFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(updateFilter(event.target.value));
+  };
   return (
     <>
       <label htmlFor="name" className={styles.label}>
@@ -12,7 +16,7 @@ const Filter = () => {
       </label>
       <input
         className={styles.input}
-        onChange={event => dispatch(updateFilter(event.target.value))}
+        onChange={handleChangeFilter}
         value={filter}
         type="text"
         name="name"

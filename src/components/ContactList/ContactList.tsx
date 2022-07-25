@@ -7,6 +7,7 @@ import { useGetContactsQuery } from 'redux/contactsApi';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import _ from 'lodash';
+import { IContact } from 'models/models';
 
 const ContactList = () => {
   const filter = useSelector(getFilter);
@@ -16,20 +17,20 @@ const ContactList = () => {
     const lowerCaseFilter = filter.toLocaleLowerCase();
     const filteredArray =
       data &&
-      [...data].filter(contact =>
+      [...data].filter((contact: IContact) =>
         contact.name.toLocaleLowerCase().includes(lowerCaseFilter)
       );
     return filteredArray;
   };
   // This part of the code is used because the backend does not accept the endpoint to send the full state object. So we cant save Reorder on server, but with this it will work in browser before reloading and refetching.
-  const filteredArray = makeFilteredMarkup();
+  const filteredArray: IContact[] | any = makeFilteredMarkup();
   const [reorderedData, setReorderedData] = useState(filteredArray);
-  const isArrayEqual = function (x, y) {
+  const isArrayEqual = function (x: any, y: any) {
     return _(x).differenceWith(y, _.isEqual).isEmpty();
   };
 
   useEffect(() => {
-    setReorderedData(prevState => {
+    setReorderedData((prevState: IContact[]) => {
       if (
         isArrayEqual(prevState, filteredArray) &&
         prevState.length === filteredArray.length
@@ -53,7 +54,7 @@ const ContactList = () => {
       onReorder={setReorderedData}
     >
       <AnimatePresence>
-        {reorderedData.map(item => (
+        {reorderedData.map((item: IContact) => (
           <Reorder.Item key={item.id} className={styles.item} value={item}>
             <ContactListItem
               id={item.id}
