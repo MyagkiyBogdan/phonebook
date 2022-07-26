@@ -27,3 +27,8 @@ export interface IGlobalState {
   contactsApi: any;
   filter: IFilterState;
 }
+
+export interface IAuthAction {
+  type: string;
+  payload?: any;
+}

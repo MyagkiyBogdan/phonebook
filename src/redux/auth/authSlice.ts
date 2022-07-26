@@ -1,11 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import authOperations from './authOperations';
-import { IAuthState } from 'models/models';
-
-interface IAuthAction {
-  type: string;
-  payload?: any;
-}
+import { IAuthState, IAuthAction } from 'models/models';
 
 const initialState: IAuthState = {
   user: { name: null, email: null },
