@@ -2,7 +2,7 @@
 
 Технологии: React, React Hooks, React router, Redux Toolkit, Material UI,
 styled-components, css modules, Framer motion, lodash, AJAX, Axios, WebPack,
-NPM, GIT, JavaScript, HTML.
+NPM, GIT, JavaScript, TypeScript, HTML.
 
 ## Запуск проекта
 
@@ -55,7 +55,7 @@ NPM, GIT, JavaScript, HTML.
 
 Technologies: React, React Hooks, React router, Redux Toolkit, Material UI,
 styled-components, css modules, Framer motion, lodash, AJAX, Axios, WebPack,
-NPM, GIT, JavaScript, HTML.
+NPM, GIT, JavaScript, TypeScript, HTML.
 
 ## Project launch
 
