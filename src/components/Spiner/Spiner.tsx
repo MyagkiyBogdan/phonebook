@@ -8,12 +8,12 @@ interface ISpinerProps {
   isNeedMargin?: Boolean;
 }
 
-const Spiner = ({
+const Spiner: React.FC<ISpinerProps> = ({
   width,
   height,
   color,
   isNeedMargin = false,
-}: ISpinerProps) => {
+}) => {
   return isNeedMargin ? (
     <span className={styles.spinerWithMargin}>
       <Watch height={width} width={height} color={color} ariaLabel="loading" />

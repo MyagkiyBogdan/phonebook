@@ -19,6 +19,7 @@ export interface IAuthState {
   token: null | string;
   isLoggedIn: Boolean;
   isFetchingCurrentUser: Boolean;
+  isError: false;
 }
 
 export interface IGlobalState {

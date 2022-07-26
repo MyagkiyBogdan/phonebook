@@ -14,7 +14,7 @@ interface IModalProps {
   toggleModal: () => void;
 }
 
-const Modal = ({ id, name, number, toggleModal }: IModalProps) => {
+const Modal: React.FC<IModalProps> = ({ id, name, number, toggleModal }) => {
   const [changeContact] = useChangeContactMutation();
 
   useEffect(() => {

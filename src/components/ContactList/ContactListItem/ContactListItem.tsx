@@ -13,7 +13,11 @@ interface IContactListItemProps {
   number: string;
 }
 
-const ContactListItem = ({ id, name, number }: IContactListItemProps) => {
+const ContactListItem: React.FC<IContactListItemProps> = ({
+  id,
+  name,
+  number,
+}) => {
   const [deleteContact, { isLoading }] = useDeleteContactMutation();
 
   const [showModal, setShowModal] = useState(false);
