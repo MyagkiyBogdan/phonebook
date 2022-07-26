@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { IGlobalState, IUserCredentials, IAuthResponse } from 'models/models';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
 
@@ -15,10 +16,12 @@ const token = {
 
 const register = createAsyncThunk(
   'auth/register',
-  async (credentials: { name: string; email: string; password: string }) => {
+  async (credentials: IUserCredentials) => {
     try {
-      // resoponse.data
-      const { data } = await axios.post('/users/signup', credentials);
+      const { data } = await axios.post<IAuthResponse>(
+        '/users/signup',
+        credentials
+      );
       token.set(data.token);
       return data;
     } catch (error) {
@@ -29,9 +32,13 @@ const register = createAsyncThunk(
 
 const login = createAsyncThunk(
   'auth/login',
-  async (credentials: { email: string; password: string }) => {
+  async (credentials: IUserCredentials) => {
     try {
-      const { data } = await axios.post('/users/login', credentials);
+      const { data } = await axios.post<IAuthResponse>(
+        '/users/login',
+        credentials
+      );
+
       token.set(data.token);
       return data;
     } catch (error) {
@@ -52,7 +59,7 @@ const logout = createAsyncThunk('auth/logout', async () => {
 const fetchCurrentUser = createAsyncThunk(
   'auth/current',
   async (arg, thunkAPI) => {
-    const state: any = thunkAPI.getState();
+    const state: IGlobalState | any = thunkAPI.getState();
     const persistedToken = state.auth.token;
 
     if (persistedToken === null) {
@@ -61,7 +68,8 @@ const fetchCurrentUser = createAsyncThunk(
 
     token.set(persistedToken);
     try {
-      const { data } = await axios.get('/users/current');
+      const { data } = await axios.get<IUserCredentials>('/users/current');
+
       return data;
     } catch (error: any) {
       console.log(error.message);

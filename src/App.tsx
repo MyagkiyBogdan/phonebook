@@ -53,5 +53,3 @@ export function App() {
     </>
   );
 }
-
-// auth operations any - change 55 row

@@ -32,3 +32,14 @@ export interface IAuthAction {
   type: string;
   payload?: any;
 }
+
+export interface IUserCredentials {
+  name?: string;
+  email: string;
+  password: string;
+}
+
+export interface IAuthResponse {
+  user: IUserCredentials;
+  token: string;
+}
