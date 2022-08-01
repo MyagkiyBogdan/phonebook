@@ -1,6 +1,6 @@
 import { IGlobalState } from 'models/models';
 
-const getIsLoggedIn = (state: IGlobalState) => state.auth.isLoggedIn;
+const getIsLoggedIn = (state: any) => state.auth.isLoggedIn;
 
 const getUsername = (state: IGlobalState) => state.auth.user.name;
 

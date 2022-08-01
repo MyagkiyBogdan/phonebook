@@ -45,7 +45,7 @@ export default function LoginView() {
         <h1>Phonebook</h1>
       </HeaderSection>
       <MainSection>
-        <Title>Sign in</Title>
+        <Title data-testid="signIn-title">Sign in</Title>
         <Text>to continue to Phonebook</Text>
         <Form onSubmit={handleSubmit}>
           <TextField

@@ -6,7 +6,7 @@ import { useAddContactMutation } from 'redux/contactsApi';
 import { toast } from 'react-toastify';
 import { IContact } from 'models/models';
 
-function ContactForm() {
+const ContactForm: React.FC = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -39,7 +39,7 @@ function ContactForm() {
     );
 
     // Check if the contact is already in the contact list
-    if (allContacts.includes(name.toLocaleLowerCase())) {
+    if (allContacts?.includes(name.toLocaleLowerCase())) {
       toast.error(`${name} already in contacts.`);
 
       return;
@@ -58,6 +58,7 @@ function ContactForm() {
           Name:
         </label>
         <input
+          data-testid="name-input"
           className={styles.inputName}
           onChange={handleChange}
           value={name}
@@ -75,6 +76,7 @@ function ContactForm() {
           Number:
         </label>
         <input
+          data-testid="number-input"
           className={styles.inputNumber}
           onChange={handleChange}
           value={number}
@@ -95,6 +97,6 @@ function ContactForm() {
       </button>
     </form>
   );
-}
+};
 
 export default ContactForm;

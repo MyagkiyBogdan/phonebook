@@ -44,7 +44,9 @@ export default function RegisterView() {
         <h1>Phonebook</h1>
       </HeaderSection>
       <MainSection>
-        <Title>Create your Phonebook Account</Title>
+        <Title data-testid="register-title">
+          Create your Phonebook Account
+        </Title>
         <Form onSubmit={handleSubmit}>
           <TextField
             required
